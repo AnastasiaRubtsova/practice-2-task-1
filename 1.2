@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static List<List<int>> combinationSum(int[] candidates, int target)
+    {
+        List<List<int>> result = new List<List<int>>();
+        List<int> current = new List<int>();
+
+        Array.Sort(candidates);
+        backtrack(result, current, candidates, target, 0);
+
+        return result;
+    }
+
+    static void backtrack(List<List<int>> result, List<int> current, int[] candidates, int target, int start)
+    {
+        if (target == 0)
+        {
+            result.Add(new List<int>(current));
+            return;
+        }
+
+        for (int i = start; i < candidates.Length && target >= candidates[i]; i++)
+        {
+            if (i > start && candidates[i] == candidates[i - 1])
+                continue;
+
+            current.Add(candidates[i]);
+            backtrack(result, current, candidates, target - candidates[i], i + 1);
+            current.RemoveAt(current.Count - 1);
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        int[] candidates1 = { 2, 5, 2, 1, 2 };
+        int target1 = 5;
+        List<List<int>> result1 = combinationSum(candidates1, target1);
+
+        Console.WriteLine("[");
+        foreach (List<int> combination in result1)
+        {
+            Console.WriteLine("  [{0}]", string.Join(",", combination));
+        }
+        Console.WriteLine("]");
+
+        int[] candidates2 = { 10, 1, 2, 7, 6, 1, 5 };
+        int target2 = 8;
+        List<List<int>> result2 = combinationSum(candidates2, target2);
+
+        Console.WriteLine("[");
+        foreach (List<int> combination in result2)
+        {
+            Console.WriteLine("  [{0}]", string.Join(",", combination));
+        }
+        Console.WriteLine("]");
+    }
+}
