@@ -1,0 +1,23 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите символы, которые будем искать: ");
+        string j = Console.ReadLine();
+        Console.WriteLine("Строка в которой будем искать: ");
+        string s = Console.ReadLine();
+
+        int count = 0;
+        foreach (char c in s)
+        {
+            if (j.Contains(c))
+            {
+                count++;
+            }
+        }
+        Console.WriteLine("Количество совпадающих символов в строке: ");
+        Console.WriteLine(count);
+    }
+}
